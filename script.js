@@ -2,9 +2,17 @@
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
     });
 });
 
@@ -45,25 +53,68 @@ const observer = new IntersectionObserver((entries) => {
 
 observer.observe(skillsSection);
 
-// Mobile menu toggle
-const createMobileMenu = () => {
-    const nav = document.querySelector('.nav-content');
-    const menuButton = document.createElement('button');
-    menuButton.classList.add('menu-toggle');
-    menuButton.innerHTML = '<i class="fas fa-bars"></i>';
+// Mobile Menu Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
     
-    menuButton.addEventListener('click', () => {
-        const navLinks = document.querySelector('.nav-links');
-        navLinks.classList.toggle('active');
-    });
+    if (menuToggle && navLinks) {
+        // Toggle menu
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            
+            // Toggle icon
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
 
-    nav.insertBefore(menuButton, nav.firstChild);
-};
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
 
-// Initialize mobile menu on small screens
-if (window.innerWidth <= 768) {
-    createMobileMenu();
-}
+        // Close menu when clicking on links
+        navLinks.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    }
+});
+
+// Read More Button Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const readMoreBtn = document.querySelector('.read-more-btn');
+    const expandableContent = document.querySelector('.expandable-content');
+
+    if (readMoreBtn && expandableContent) {
+        readMoreBtn.addEventListener('click', function() {
+            expandableContent.classList.toggle('active');
+            readMoreBtn.textContent = expandableContent.classList.contains('active') ? 'See Less' : 'See More';
+        });
+    }
+});
 
 // Update copyright year automatically
 document.addEventListener('DOMContentLoaded', function() {

@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -803,20 +809,24 @@
         <div class="contact-container">
             <form id="contactForm" class="contact-form">
                 <div class="form-group">
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="text" id="name" name="user_name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <input type="email" id="email" name="user_email" placeholder="Your Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+                    <input type="tel" id="phone" name="user_phone" placeholder="Your Phone Number" required>
                 </div>
                 <div class="form-group">
                     <textarea id="message" name="message" placeholder="Your Message" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Send Message</button>
-                <div id="success-message" class="success-message">Message sent successfully! Thank you for contacting me.</div>
             </form>
+            <div id="success-message" class="success-message">Message sent successfully! Thank you for contacting me.</div>
+            <div id="error-message" class="error-message">Sorry, there was an error sending your message. Please try again.</div>
+            <div id="sending-overlay" class="sending-overlay">
+                <div class="sending-spinner"></div>
+            </div>
         </div>
     </section>
 

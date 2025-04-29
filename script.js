@@ -141,38 +141,54 @@ document.getElementById('contactForm').addEventListener('submit', function(event
     
     const submitBtn = document.querySelector('.submit-btn');
     const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
+    const sendingOverlay = document.getElementById('sending-overlay');
     
-    // Get form data
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const message = document.getElementById('message').value;
-    
-    // Create mailto link with form data
-    const mailtoLink = `mailto:bogaledawit34@gmail.com?subject=Portfolio Contact from ${name}&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-    
-    // Show loading state
+    // Show sending state
     submitBtn.disabled = true;
-    submitBtn.classList.add('loading');
+    sendingOverlay.classList.add('show');
     
-    // Open default email client
-    window.location.href = mailtoLink;
+    // Hide any existing messages
+    successMessage.classList.remove('show');
+    errorMessage.classList.remove('show');
     
-    // Show success message
-    successMessage.textContent = 'Message sent successfully! Thank you for contacting me.';
-    successMessage.classList.add('show');
-    
-    // Clear form
-    event.target.reset();
-    
-    // Reset button state
-    submitBtn.disabled = false;
-    submitBtn.classList.remove('loading');
-    
-    // Hide success message after 5 seconds
-    setTimeout(() => {
-        successMessage.classList.remove('show');
-    }, 5000);
+    // Send email using EmailJS
+    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+        .then(() => {
+            // Hide sending overlay
+            sendingOverlay.classList.remove('show');
+            
+            // Show success message
+            successMessage.classList.add('show');
+            
+            // Clear form
+            event.target.reset();
+            
+            // Reset button state
+            submitBtn.disabled = false;
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        })
+        .catch((error) => {
+            console.error('Email Error:', error);
+            
+            // Hide sending overlay
+            sendingOverlay.classList.remove('show');
+            
+            // Show error message
+            errorMessage.classList.add('show');
+            
+            // Reset button state
+            submitBtn.disabled = false;
+            
+            // Hide error message after 5 seconds
+            setTimeout(() => {
+                errorMessage.classList.remove('show');
+            }, 5000);
+        });
 });
 
 // Update copyright year automatically

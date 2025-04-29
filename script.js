@@ -135,37 +135,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Initialize EmailJS
+(function() {
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+})();
+
 // Contact Form Submission
 document.getElementById('contactForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
-    const submitBtn = document.querySelector('.submit-btn');
+    const form = this;
+    const submitBtn = form.querySelector('.submit-btn');
+    const btnText = submitBtn.querySelector('.btn-text');
     const successMessage = document.getElementById('success-message');
     const errorMessage = document.getElementById('error-message');
     const sendingOverlay = document.getElementById('sending-overlay');
-    
-    // Show sending state
-    submitBtn.disabled = true;
-    sendingOverlay.classList.add('show');
     
     // Hide any existing messages
     successMessage.classList.remove('show');
     errorMessage.classList.remove('show');
     
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    sendingOverlay.classList.add('show');
+    
     // Send email using EmailJS
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form)
         .then(() => {
-            // Hide sending overlay
-            sendingOverlay.classList.remove('show');
-            
             // Show success message
             successMessage.classList.add('show');
             
             // Clear form
-            event.target.reset();
+            form.reset();
             
-            // Reset button state
+            // Hide loading state
             submitBtn.disabled = false;
+            submitBtn.classList.remove('loading');
+            sendingOverlay.classList.remove('show');
             
             // Hide success message after 5 seconds
             setTimeout(() => {
@@ -175,14 +182,13 @@ document.getElementById('contactForm').addEventListener('submit', function(event
         .catch((error) => {
             console.error('Email Error:', error);
             
-            // Hide sending overlay
-            sendingOverlay.classList.remove('show');
-            
             // Show error message
             errorMessage.classList.add('show');
             
-            // Reset button state
+            // Hide loading state
             submitBtn.disabled = false;
+            submitBtn.classList.remove('loading');
+            sendingOverlay.classList.remove('show');
             
             // Hide error message after 5 seconds
             setTimeout(() => {

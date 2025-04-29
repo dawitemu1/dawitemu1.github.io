@@ -658,34 +658,38 @@ section {
 
 /* Certificates Section */
 .certificates {
-    padding: 50px 15px;
+    padding: 3vh 2vw;
     background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+    overflow: hidden;
+    width: 100%;
 }
 
 .certificates-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+    width: 90%;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 15px;
+    padding: clamp(0.5rem, 1vw, 1rem);
 }
 
 .certificate-card {
     background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    border-radius: clamp(0.5rem, 1vw, 1rem);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
     border: 1px solid #e1e4e8;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    aspect-ratio: 4/5;
+    width: 100%;
 }
 
 .certificate-preview {
     width: 100%;
-    height: 300px;
+    height: 60%;
     position: relative;
     background: #f8f9fa;
     border-bottom: 1px solid #e1e4e8;
@@ -697,259 +701,183 @@ section {
     height: 100%;
     border: none;
     display: block;
+    background: #fff;
+    -webkit-overflow-scrolling: touch;
 }
 
 .certificate-info {
-    padding: 20px;
+    padding: clamp(0.5rem, 2vw, 1rem);
     text-align: center;
     background: white;
-    flex-grow: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .certificate-info h3 {
-    margin: 0 0 10px;
-    font-size: 1.2rem;
+    margin: 0 0 0.5em;
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
     color: #2c3e50;
     font-weight: 600;
+    line-height: 1.3;
 }
 
 .certificate-info p {
-    margin: 0 0 15px;
+    margin: 0 0 0.8em;
     color: #546e7a;
-    font-size: 1rem;
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    line-height: 1.4;
 }
 
 .certificate-link {
     display: inline-block;
-    padding: 10px 20px;
+    width: 90%;
+    padding: clamp(0.5rem, 1.5vw, 0.8rem);
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: clamp(0.3rem, 0.8vw, 0.5rem);
     transition: all 0.3s ease;
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
     font-weight: 500;
-    margin-top: auto;
+    margin: 0.5rem auto;
 }
 
 .certificate-link:hover {
     background: linear-gradient(135deg, #0056b3, #004094);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
 
-/* Responsive breakpoints */
-@media (min-width: 2000px) {
+/* Ensure minimum spacing on very small screens */
+@media (max-width: 320px) {
     .certificates-grid {
-        grid-template-columns: repeat(5, 1fr);
-        max-width: 2000px;
-    }
-}
-
-@media (min-width: 1600px) and (max-width: 1999px) {
-    .certificates-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (min-width: 1200px) and (max-width: 1599px) {
-    .certificates-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
-    }
-    
-    .certificate-preview {
-        height: 280px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .certificates-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-    }
-    
-    .certificate-preview {
-        height: 260px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    .certificates-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-    
-    .certificate-preview {
-        height: 280px;
-    }
-}
-
-@media (max-width: 767px) {
-    .certificates-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        padding: 10px;
-    }
-    
-    .certificate-preview {
-        height: 300px;
-    }
-    
-    .certificate-info {
-        padding: 15px;
-    }
-    
-    .certificate-info h3 {
-        font-size: 1.1rem;
-    }
-}
-
-/* Ensure certificates are visible on smaller laptops */
-@media (min-width: 1024px) and (max-height: 800px) {
-    .certificate-preview {
-        height: 240px;
-    }
-    
-    .certificate-info {
-        padding: 15px;
-    }
-    
-    .certificates-grid {
-        gap: 12px;
-    }
-}
-
-/* Mobile-specific certificate styles */
-@media (max-width: 480px) {
-    .certificates {
-        padding: 30px 10px;
-    }
-
-    .certificates-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        padding: 5px;
+        width: 95%;
+        gap: 0.5rem;
+        padding: 0.5rem;
     }
     
     .certificate-card {
-        border-radius: 10px;
-        margin: 0 5px;
-    }
-    
-    .certificate-preview {
-        height: 200px; /* Shorter height for mobile */
-    }
-    
-    .certificate-info {
-        padding: 12px;
-    }
-    
-    .certificate-info h3 {
-        font-size: 1rem;
-        margin: 0 0 8px;
-    }
-    
-    .certificate-info p {
-        font-size: 0.9rem;
-        margin: 0 0 12px;
-    }
-    
-    .certificate-link {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-        width: 100%; /* Full width button on mobile */
-        box-sizing: border-box;
+        aspect-ratio: 3/4;
     }
 }
 
-/* Extra small phones */
-@media (max-width: 320px) {
-    .certificates {
-        padding: 20px 5px;
-    }
-
+/* Optimize for landscape mode */
+@media (orientation: landscape) and (max-height: 500px) {
     .certificates-grid {
-        padding: 3px;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    }
+    
+    .certificate-card {
+        aspect-ratio: 3/2;
     }
     
     .certificate-preview {
-        height: 180px;
-    }
-    
-    .certificate-info {
-        padding: 10px;
-    }
-    
-    .certificate-info h3 {
-        font-size: 0.95rem;
-    }
-    
-    .certificate-info p {
-        font-size: 0.85rem;
-        margin: 0 0 10px;
-    }
-    
-    .certificate-link {
-        padding: 7px 14px;
-        font-size: 0.85rem;
+        height: 50%;
     }
 }
 
-/* Landscape mode for phones */
-@media (max-height: 480px) and (orientation: landscape) {
+/* Optimize for larger screens */
+@media (min-width: 1400px) {
     .certificates-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        width: 85%;
     }
-    
+}
+
+/* Add smooth scrolling and zoom for touch devices */
+@supports (-webkit-overflow-scrolling: touch) {
     .certificate-preview {
-        height: 160px;
+        -webkit-overflow-scrolling: touch;
+        overflow: auto;
     }
     
-    .certificate-info {
-        padding: 10px;
+    .certificate-iframe {
+        transform: scale(1);
+        transform-origin: top left;
     }
-    
-    .certificate-info h3 {
-        font-size: 0.95rem;
-        margin: 0 0 5px;
-    }
-    
-    .certificate-info p {
-        font-size: 0.85rem;
-        margin: 0 0 8px;
-    }
-}
-
-/* Improve PDF visibility on mobile */
-.certificate-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-    background: #fff;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-}
-
-/* Add pinch-zoom support for mobile */
-.certificate-preview {
-    -webkit-overflow-scrolling: touch;
-    overflow: auto;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
 }
 
 /* Contact Form Styles */
 .contact-form {
-    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-group textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+    outline: none;
 }
 
 .submit-btn {
+    width: 100%;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #004094);
+    transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-loader {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 1s linear infinite;
+}
+
+.submit-btn.loading .btn-text {
+    visibility: hidden;
+}
+
+.submit-btn.loading .btn-loader {
+    display: block;
 }
 
 .success-message,
@@ -959,23 +887,21 @@ section {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 20px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 16px 32px;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
     z-index: 1000;
     text-align: center;
-    font-size: 1.1rem;
-    animation: fadeInOut 0.5s ease-in-out;
+    animation: fadeInOut 0.3s ease-in-out;
 }
 
 .success-message {
     background: rgba(40, 167, 69, 0.95);
-    color: white;
 }
 
 .error-message {
     background: rgba(220, 53, 69, 0.95);
-    color: white;
 }
 
 .success-message.show,
@@ -1004,8 +930,8 @@ section {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border: 4px solid #f3f3f3;
     border-top: 4px solid #007bff;
     border-radius: 50%;
@@ -1015,6 +941,37 @@ section {
 @keyframes spin {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -60%); }
+    100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Make contact form responsive */
+@media (max-width: 768px) {
+    .contact-form {
+        padding: 15px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .submit-btn {
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    .success-message,
+    .error-message {
+        padding: 12px 24px;
+        font-size: 15px;
+        width: 90%;
+        max-width: 300px;
+    }
 }
 
 /* Contact Section */
